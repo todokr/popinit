@@ -85,7 +85,7 @@ tasks:
 }
 
 if (import.meta.main) {
-  const execDir = import.meta.dirname;
+  const execDir = Deno.cwd();
   const targetDir = Deno.args[0] || "";
   const path = normalize(`${execDir}/${targetDir}`);
 
@@ -102,6 +102,8 @@ if (import.meta.main) {
     port: dbPort,
   };
 
+  Deno.mkdir(path);
+
   const dockerDir = `${path}/docker`;
   Deno.mkdir(dockerDir);
   const composeFileContent = dockerComposeFile(projectName, pgConfig);
@@ -115,4 +117,5 @@ if (import.meta.main) {
 
   const taskFileContent = taskFile(projectName, pgConfig);
   Deno.writeTextFile(`${path}/Taskfile.yaml`, taskFileContent);
+  console.log(`created: ${path}`);
 }

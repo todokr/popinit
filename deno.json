@@ -1,6 +1,6 @@
 {
   "tasks": {
     "dev": "deno run --watch main.ts",
-    "build": "deno compile --output popinit-bin --allow-write ./main.ts"
+    "build": "deno compile --output popinit --allow-write --allow-read ./main.ts"
   }
 }
